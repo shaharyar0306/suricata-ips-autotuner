@@ -1,0 +1,58 @@
+# Active IPS Auto-Tuning Daemon — Configuration
+# Copy to /etc/suricata-tuner.yaml and edit for your network
+
+# ── Paths ──────────────────────────────────────────────────────────────
+eve_log_path: /var/log/suricata/eve.json
+suppress_conf: /etc/suricata/suppress.conf
+threshold_conf: /etc/suricata/threshold.conf
+pass_rules: /etc/suricata/rules/pass.rules
+suricatasc_path: /usr/bin/suricatasc
+backup_dir: /etc/suricata/tuner-backups/
+
+# ── Tuning behavior ────────────────────────────────────────────────────
+
+# Set to false after 24-hour learning period to activate auto-tuning
+learning_mode: true
+
+# Automatically add suppress rules for confirmed false positives
+auto_suppress_fp: true
+
+# Create pass rules for trusted internal traffic patterns
+auto_bypass_trusted: true
+
+# Seconds between analysis cycles (default: 5 minutes)
+analysis_interval: 300
+
+# Minimum seconds between Suricata rule reloads (default: 10 minutes)
+reload_cooldown: 600
+
+# Hard cap on auto-suppressions per hour (safety limit)
+max_auto_suppress_per_hour: 5
+
+# Alert rate above this (per hour) = classified as likely false positive
+fp_threshold_per_hour: 50
+
+# ── Your network ───────────────────────────────────────────────────────
+
+# Your internal subnets — edit to match your LAN
+internal_subnets:
+  - "192.168.1.0/24"
+  # - "10.0.0.0/8"
+  # - "172.16.0.0/12"
+
+# High-value servers — alerts involving these are never auto-suppressed
+critical_servers:
+  - "192.168.1.10"   # Domain controller
+  # - "192.168.1.20" # Database server
+
+# ── Critical SIDs ─────────────────────────────────────────────────────
+# These SIDs will NEVER be auto-suppressed, regardless of alert volume
+# Add any SID you consider mission-critical for your environment
+
+critical_sids:
+  - 2034131   # ET EXPLOIT Apache Log4j RCE (Log4Shell) CVE-2021-44228
+  - 2031412   # ET EXPLOIT MS Exchange ProxyLogon CVE-2021-26855
+  - 2031900   # ET EXPLOIT ZeroLogon CVE-2020-1472
+  - 2031449   # ET TROJAN SUNBURST SolarWinds Backdoor
+  - 2033462   # ET EXPLOIT PrintNightmare CVE-2021-34527
+  - 2036000   # ET EXPLOIT Spring4Shell CVE-2022-22965
