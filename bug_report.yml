@@ -1,0 +1,60 @@
+name: Bug Report
+description: Something isn't working right
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for reporting! Please fill this out so we can reproduce the issue.
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      placeholder: "e.g. Rocky Linux 9.3"
+    validations:
+      required: true
+
+  - type: input
+    id: suricata
+    attributes:
+      label: Suricata Version
+      placeholder: "suricata --version output"
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python Version
+      placeholder: "python3 --version output"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the bug clearly.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log lines
+      description: From /var/log/suricata-tuner.log — redact internal IPs
+      render: shell
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Config (redacted)
+      description: Your suricata-tuner.yaml with IPs removed
+      render: yaml
