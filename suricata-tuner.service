@@ -1,0 +1,21 @@
+[Unit]
+Description=Active IPS Auto-Tuning Daemon for Suricata
+Documentation=https://github.com/YOUR_USERNAME/active-ips-tuner
+After=suricata.service
+Requires=suricata.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/python3 /opt/suricata-tuner/active_ips_tuner.py --config /etc/suricata-tuner.yaml
+Restart=on-failure
+RestartSec=10
+StandardOutput=append:/var/log/suricata-tuner.log
+StandardError=append:/var/log/suricata-tuner.log
+
+# Hardening
+NoNewPrivileges=no
+ProtectSystem=false
+
+[Install]
+WantedBy=multi-user.target
