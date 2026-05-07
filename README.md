@@ -68,7 +68,7 @@ Manual tuning takes hours every week and one wrong config can break your IPS ent
 sudo dnf install python3 python3-pip -y
 sudo pip3 install pyyaml
 
-git clone https://github.com/YOUR_USERNAME/active-ips-tuner.git
+git clone https://github.com/shaharyar0306/suricata-ips-autotuner.git
 sudo cp active-ips-tuner/active_ips_tuner.py /opt/suricata-tuner/
 sudo chmod +x /opt/suricata-tuner/active_ips_tuner.py
 ```
